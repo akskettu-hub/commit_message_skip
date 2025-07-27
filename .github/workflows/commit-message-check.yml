@@ -25,6 +25,9 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
 
       - if: ${{ env.SKIP_CONDITION == 'true' }}
-        run: echo "this should print this, because this is true"     
+        run: echo "this should print this, because this is true"
+
+      - if: & {{ env.SKIP_CONDITION == 'false' }}
+        run: echo "this should not print if the value is false" 
 
 
