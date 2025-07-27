@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+    
 env:
   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
   SKIP_CONDITION: ${{ contains(join(github.event.commits.*.message), '#skip') }}
@@ -27,7 +31,9 @@ jobs:
       - if: ${{ env.SKIP_CONDITION == 'true' }}
         run: echo "this should print this, because this is true"
 
-      - if: & {{ env.SKIP_CONDITION == 'false' }} 
+      - if: ${{ env.SKIP_CONDITION == 'false' }} 
         run: echo "this should not print if the value is false" 
-
+        
+      - if: ${{ env.SKIP_CONDITION == 'false' && github.event_name == 'push' }} 
+        run: echo "This should only print if commit doesn't have skip and its a push to main or pull request." 
 
