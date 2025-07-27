@@ -6,6 +6,7 @@ on:
       - main
 env:
   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+  SKIP_CONDITION ${{ contains.(toJson(github.event.commits), '#skip') }}
 
 jobs:
   a_test_job:
@@ -23,6 +24,7 @@ jobs:
       - name: commit messages
         run: echo "$COMMIT_MESSAGES"
 
-    
+      - if: ${{ env.SKIP_CONDITION == 'true' }}
+        run: echo "this should print this, because this is true"     
 
 
