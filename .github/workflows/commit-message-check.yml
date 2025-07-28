@@ -39,7 +39,8 @@ jobs:
       - if: ${{ env.SKIP_CONDITION == 'false' && github.event_name == 'push' }} 
         run: echo "This should only print if commit doesn't have skip and its a push to main or pull request."
 
-      - if: ${{ env.SKIP_TAG_AND_DEPLOY == 'false' }}
+      - name: mock deploy
+        if: ${{ github.env.SKIP_TAG_AND_DEPLOY == 'false' }}
         run: echo "This should only print if tag and deploy is false"
   
   another_test_job:
