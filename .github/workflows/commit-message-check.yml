@@ -40,7 +40,7 @@ jobs:
         run: echo "This should only print if commit doesn't have skip and its a push to main or pull request."
 
       - if: ${{ env.SKIP_TAG_AND_DEPLOY == 'false' }}
-        run: echo "This should only print if skip condition is false to main or pull request."
+        run: echo "This should only print if tag and deploy is false"
   
   another_test_job:
     if: ${{ github.env.SKIP_TAG_AND_DEPLOY == 'false'}}
