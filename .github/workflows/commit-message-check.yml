@@ -12,6 +12,8 @@ env:
   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
   SKIP_CONDITION: ${{ contains(join(github.event.commits.*.message), '#skip') }}
 
+  SKIP_TAG_AND_DEPLOY: ${{ github.env.SKIP_CONDITION == 'false' &&  github.event_name == 'push'}}
+
 jobs:
   a_test_job:
     runs-on: ubuntu-latest
@@ -35,5 +37,8 @@ jobs:
         run: echo "this should not print if the value is false" 
         
       - if: ${{ env.SKIP_CONDITION == 'false' && github.event_name == 'push' }} 
-        run: echo "This should only print if commit doesn't have skip and its a push to main or pull request." 
+        run: echo "This should only print if commit doesn't have skip and its a push to main or pull request."
+
+      - if: ${{ env.SKIP_TAG_AND_DEPLOY == 'false' }}
+        run: echo "This should only print if skip condition is false to main or pull request."
 
