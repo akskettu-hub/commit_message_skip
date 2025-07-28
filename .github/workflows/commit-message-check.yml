@@ -43,7 +43,7 @@ jobs:
         run: echo "This should only print if skip condition is false to main or pull request."
   
   another_test_job:
-    if: if ${{ github.env SKIP_TAG_AND_DEPLOY == 'false'}}
+    if: if ${{ github.env.SKIP_TAG_AND_DEPLOY == 'false'}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
