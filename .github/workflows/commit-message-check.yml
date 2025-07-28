@@ -30,6 +30,9 @@ jobs:
       - name: commit messages
         run: echo "$COMMIT_MESSAGES"
 
+      - name: skip contents
+        run: echo "skip condition $SKIP_CONDITION"
+
       - name: skip tag and deploy contents
         run: echo "stad $SKIP_TAG_AND_DEPLOY"
 
